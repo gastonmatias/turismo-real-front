@@ -6,6 +6,7 @@ import TurismorealContext from "../context/TurismorealContext"
 import { useContext } from "react"
 import DeptoDetail from "../components/deptos/deptoDetail/DeptoDetail"
 import Header from "../components/UI/Header"
+import CrearReserva from "../components/reserva/crearReserva/CrearReserva"
 
 export const DashboardRoutes = () => {
   
@@ -20,7 +21,8 @@ export const DashboardRoutes = () => {
               {/* en LoginScreen NO se verán estas rutas */}
               <Route path="" element={<Home/>} />
               <Route path="departamentos" element={<DeptoList/>} />
-              <Route path="depto/:id" element={<DeptoDetail/>} />
+              <Route path="depto/:idDepto" element={<DeptoDetail/>} />
+              <Route path="nueva-reserva" element={<CrearReserva/>}/>
               <Route path="mis-reservas"/>
 
           </Routes>

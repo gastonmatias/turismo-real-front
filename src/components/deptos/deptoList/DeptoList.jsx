@@ -1,8 +1,9 @@
 import React from 'react'
 
-import './deptoList.css'
-import { getDeptos } from './arrayDeptos'
 import DeptoListItem from '../deptoListItem/DeptoListItem'
+import { getDeptos } from '../../../services/arrayGetDeptoList'
+
+import './deptoList.css'
 
 const DeptoList = () => {
   
@@ -10,14 +11,11 @@ const DeptoList = () => {
   
     return (
     
-    
     <div className="">
 
         {deptos.map((depto) => <DeptoListItem key={depto.id}{...depto}/>)}
 
-
-    </div>
-    
+    </div>    
   )
 }
 

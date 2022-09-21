@@ -1,7 +1,7 @@
-import imgDepto1 from '../../../assets/deptos/depto1.jpg'
-import imgDepto2 from '../../../assets/deptos/depto2.jpg'
-import imgDepto3 from '../../../assets/deptos/depto3.jpg'
-import imgDepto4 from '../../../assets/deptos/depto4.jpg'
+import vigna1 from '../assets/deptos/vigna1.jpg'
+import castro1 from '../assets/deptos/castro1.jpg'
+import corral1 from '../assets/deptos/corral1.jpg'
+import catchagua1 from '../assets/deptos/catchagua1.jpg'
 
 export const getDeptos = () => {
     let deptos = [
@@ -16,7 +16,7 @@ export const getDeptos = () => {
             "long_description": "Departamento adecuado para 2 personas",
             "capacity":2,
             "qty_rooms":1,
-            "img": imgDepto3
+            "img": corral1
         },
         {
             "id": 2,
@@ -29,7 +29,7 @@ export const getDeptos = () => {
             "long_description": "Departamento adecuado para 3-6 personas",
             "capacity":6,
             "qty_rooms":3,
-            "img": imgDepto2
+            "img": castro1
         },
         {
             "id": 3,
@@ -42,7 +42,20 @@ export const getDeptos = () => {
             "long_description": "Departamento adecuado para 3-6 personas",
             "capacity":6,
             "qty_rooms":3,
-            "img": imgDepto1
+            "img": vigna1
+        },
+        {
+            "id": 4,
+            "status": "Disponible",
+            "price": "158.990",
+            "region": "Valparaíso",
+            "commune": "Catchagua",
+            "adress": "perritopapurripapa #564",
+            "short_description": "Familiar",
+            "long_description": "Departamento adecuado para 3-6 personas",
+            "capacity":6,
+            "qty_rooms":4,
+            "img": catchagua1
         },
       ]
 

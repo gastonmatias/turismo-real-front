@@ -1,11 +1,18 @@
 import React, { useContext } from 'react'
 import TurismorealContext from '../../context/TurismorealContext'
-import DeptoList from '../deptos/deptoList/DeptoList'
-import {CarouselDeptos} from './Carousel'
+import { getDeptos } from '../../services/arrayGetDeptoList'
+import {CarouselHome} from './CarouselHome'
 
 const Home = () => {
   
   const {user, logoutUser} = useContext(TurismorealContext)
+
+  const deptos = getDeptos()
+
+  //console.log(deptos);
+
+  const test = deptos.find((e) => e.id === 1)
+  console.log(test)
   
   return (
    
@@ -18,18 +25,13 @@ const Home = () => {
               <h1 className='h1 text-center display-4'>Bienvenidos!</h1>  
             }
         </div>
-
    
-        <CarouselDeptos/>
-
-        
+        <CarouselHome/>
 
         <div className='py-2'>
-        <h2 className='display-4 text-center py-2'>Nuestros Departamentos</h2>
-        <DeptoList/>
+          <h2 className='display-4 text-center py-2'>Testimonios</h2>
         </div>
-
-
+        
     </div>
   )
 }
