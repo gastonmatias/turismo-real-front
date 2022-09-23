@@ -1,18 +1,12 @@
-import React, { useContext } from 'react'
+import React, { useContext,useEffect } from 'react'
 import TurismorealContext from '../../context/TurismorealContext'
-import { getDeptos } from '../../services/arrayGetDeptoList'
+import getDeptos from '../../services/getDeptos'
+//import { getDeptos } from '../../services/arrayGetDeptoList'
 import {CarouselHome} from './CarouselHome'
 
 const Home = () => {
-  
-  const {user, logoutUser} = useContext(TurismorealContext)
 
-  const deptos = getDeptos()
-
-  //console.log(deptos);
-
-  const test = deptos.find((e) => e.id === 1)
-  console.log(test)
+  const {user} = useContext(TurismorealContext)
   
   return (
    

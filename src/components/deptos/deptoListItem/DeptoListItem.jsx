@@ -14,25 +14,15 @@ const DeptoListItem = (props) => {
     long_description,
     capacity,
     qty_rooms,
-    img
+    link_img
   } = props
 
   return (
-   /*  <div className="card">
-    
-      <img className="card-img-top img-fluid" src={img} alt="Card image cap"/>
-      <div className="card-body">
-        <h5 className="card-title">{ciudad}</h5>
-        <p className="card-text">{descripcion}</p>
-        <p className="card-text"><small className="text-muted">capacidad: {capacidad}</small></p>
-      </div>
-    
-    </div> */
 
     <div className="row my-2 mx-2 border">
 
       <div className='col-md-6 col-sm-12' >
-      <img className="img-fluid" src={img} alt="Card image cap"/>
+      <img className="img-fluid" src={link_img} alt="Card image cap"/>
       </div>
 
       <div className="col-md-6 col-sm-12 mt-5">

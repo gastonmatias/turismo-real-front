@@ -1,25 +1,21 @@
 import React, { useState, useEffect} from 'react';
-import { Navigate, useNavigate, useParams} from "react-router-dom"
+import { useParams} from "react-router-dom"
 
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-import { getDeptoById } from '../../../services/arrayGetDeptoById'
 import { useMemo } from 'react';
 import CrearReserva from '../../reserva/crearReserva/CrearReserva';
+import getDeptoById from '../../../services/getDeptoById';
 
 
 const DeptoDetail = () => {
 
   const {idDepto} = useParams()
   //console.log('idDepto: ',idDepto);
-
-  const navigate = useNavigate() 
   
   useEffect(() => {
-  
-    getDeptoDetail()
-    
+    getDeptoDetail(idDepto)
   }, []);
 
   const [depto, setDepto] = useState([]);
@@ -28,8 +24,8 @@ const DeptoDetail = () => {
   //const depa = useMemo(() => getDeptoById(idDepto), [idDepto])
   //setDepto(depa)
   
-  const getDeptoDetail =  () => {
-    const deptoDetail = getDeptoById(Number(idDepto))
+  const getDeptoDetail =  async(idDepto) => {
+    const deptoDetail = await getDeptoById(idDepto)
     setDepto(deptoDetail)
   }
 
@@ -45,7 +41,7 @@ const DeptoDetail = () => {
       !showFormReserva ?
     
       <Card >
-        <Card.Img variant="top" className='img img-fluid' src={depto.img} />
+        <Card.Img variant="top" className='img img-fluid' src={depto.link_img} />
         <Card.Body>
           <Card.Title className='display-5'>{depto.commune}</Card.Title>
           <Card.Text>
@@ -56,7 +52,7 @@ const DeptoDetail = () => {
         <ListGroup className="list-group-flush">
           <ListGroup.Item><b>Precio:       </b> ${depto.price}</ListGroup.Item>
           <ListGroup.Item><b>Región:       </b>  {depto.region} </ListGroup.Item>
-          <ListGroup.Item><b>Direción:     </b>  {depto.adress} </ListGroup.Item>
+          <ListGroup.Item><b>Direción:     </b>  {depto.address} </ListGroup.Item>
           <ListGroup.Item><b>Tipo:         </b>  {depto.short_description} </ListGroup.Item>
           <ListGroup.Item><b>Capacidad:    </b>  {depto.capacity} </ListGroup.Item>
           <ListGroup.Item><b>Habitaciones: </b>  {depto.qty_rooms} </ListGroup.Item>
