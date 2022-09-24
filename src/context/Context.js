@@ -20,7 +20,7 @@ export const TurismorealProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const loginUser = async (username, password) => {
-    const response = await fetch("http://127.0.0.1:8000/api/token/", {
+    const response = await fetch("http://127.0.0.1:8000/api_web/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -43,7 +43,7 @@ export const TurismorealProvider = ({ children }) => {
   };
   
   const registerUser = async (username,nombre,apellido,email, pass1, pass2) => {
-    const response = await fetch("http://127.0.0.1:8000/api/register/", {
+    const response = await fetch("http://127.0.0.1:8000/api_web/register/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

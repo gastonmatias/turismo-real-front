@@ -1,6 +1,6 @@
 const getDeptos = async () => {
   
-  const url = `http://localhost:8000/api/deptos/`;
+  const url = `http://localhost:8000/api_web/deptos/`;
 
   const opt = {
     method: "GET"
