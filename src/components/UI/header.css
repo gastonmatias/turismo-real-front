@@ -7,8 +7,8 @@ nav {
     background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29); 
      */
 	
-	 background: rgb(116,67,38);
-	 background: linear-gradient(90deg, rgba(116,67,38,1) 0%, rgba(148,30,30,1) 50%, rgba(145,101,60,1) 100%);
+	/*  background: rgb(116,67,38);
+	 background: linear-gradient(90deg, rgba(116,67,38,1) 0%, rgba(148,30,30,1) 50%, rgba(145,101,60,1) 100%); */
 		 
 	width:100%;
 	padding:20px;

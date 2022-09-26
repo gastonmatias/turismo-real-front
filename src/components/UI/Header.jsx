@@ -17,7 +17,7 @@ function Header() {
   }
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand href="/">
         <img src={logoTR} alt="tr" className='img img-fluid' width={100}/> 
