@@ -12,24 +12,24 @@ const DeptoListItem = (props) => {
     adress,
     short_description,
     long_description,
-    capacity,
     qty_rooms,
-    link_img
+    department_image
   } = props
+
 
   return (
 
     <div className="row my-2 mx-2 border">
 
       <div className='col-md-6 col-sm-12' >
-      <img className="img-fluid" src={link_img} alt="Card image cap"/>
+      <img className="img-fluid" src={`data:image/png;base64,${department_image}`} alt="image depto"/>
       </div>
 
       <div className="col-md-6 col-sm-12 mt-5">
         <h5 className="display-6">{commune}</h5>
         <h4 className="">Región de {region}</h4>
         <p className="">Tipo: {short_description}</p>
-        <p className=""><small className="text-muted">capacidad: {capacity}</small></p>
+        <p className=""><small className="text-muted">Habitaciones: {qty_rooms}</small></p>
         <Link to={`/depto/${id}`}
               className='btn btn-outline-primary'
               >
