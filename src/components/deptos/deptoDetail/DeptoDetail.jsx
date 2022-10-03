@@ -41,7 +41,7 @@ const DeptoDetail = () => {
       !showFormReserva ?
     
       <Card >
-        <Card.Img variant="top" className='img img-fluid' src={depto.link_img} />
+        <Card.Img variant="top" className='img img-fluid' src={`data:image/png;base64,${depto.department_image}`} />
         <Card.Body>
           <Card.Title className='display-5'>{depto.commune}</Card.Title>
           <Card.Text>
@@ -54,7 +54,6 @@ const DeptoDetail = () => {
           <ListGroup.Item><b>Región:       </b>  {depto.region} </ListGroup.Item>
           <ListGroup.Item><b>Direción:     </b>  {depto.address} </ListGroup.Item>
           <ListGroup.Item><b>Tipo:         </b>  {depto.short_description} </ListGroup.Item>
-          <ListGroup.Item><b>Capacidad:    </b>  {depto.capacity} </ListGroup.Item>
           <ListGroup.Item><b>Habitaciones: </b>  {depto.qty_rooms} </ListGroup.Item>
         </ListGroup>
 

@@ -58,7 +58,7 @@ export const TurismorealProvider = ({ children }) => {
       })
     });
     if (response.status === 201) {
-      loginUser(username,pass1)
+      await loginUser(username,pass1)
       navigate("/");
     } else {
       alert("Ha ocurrido un error! Intenta denuevo más tarde");

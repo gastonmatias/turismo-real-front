@@ -1,7 +1,7 @@
 import { url_django } from "../env";
 
-const getDeptos = async () => {
-  const url = `${url_django}/api_web/deptos/`;
+const getExtraServices = async () => {
+  const url = `${url_django}/api_web/servicios_extra/`;
 
   const opt = {
     method: "GET"
@@ -17,16 +17,16 @@ const getDeptos = async () => {
     const data = await resp.json();
 
     if (data === null || data === undefined) {
-      return console.log("Hubo un error al obtener departamentos");
+      return console.log("Hubo un error al obtener servicios_extra");
     }
 
-    const result = data.deptos;
+    const result = data.services;
 
     return result;
 
   } catch (err) {
-    console.log("[getDeptos] Error : ", err);
+    console.log("[getExtraServices] Error : ", err);
   }
 };
 
-export default getDeptos;
+export default getExtraServices;

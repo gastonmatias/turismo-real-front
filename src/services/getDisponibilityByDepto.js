@@ -1,8 +1,8 @@
 import { url_django } from "../env";
 
-const getDeptoById = async (id) => {
+const getDisponibilityByDepto = async (id) => {
   
-    const url = `${url_django}/api_web/deptos/${id}`;
+    const url = `${url_django}/api_web/disponibilidad_depto/${id}`;
   
     const opt = {
       method: "GET"
@@ -18,17 +18,17 @@ const getDeptoById = async (id) => {
       const data = await resp.json();
   
       if (data === null || data === undefined) {
-        return console.log("Hubo un error al obtener departamento");
+        return console.log("Hubo un error al obtener disponibilidad del departamento");
       }
   
-      const result = data.deptos[0];
+      const result = data.fechasNoDisponibles;
   
       return result;
   
     } catch (err) {
-      console.log("[getDeptoById] Error : ", err);
+      console.log("[getDisponibilityByDepto] Error : ", err);
     }
 };
   
-  export default getDeptoById;
+  export default getDisponibilityByDepto;
   
