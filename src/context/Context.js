@@ -5,17 +5,23 @@ import TurismorealContext from "./TurismorealContext";
 
 export const TurismorealProvider = ({ children }) => {
   
-    const [authTokens, setAuthTokens] = useState(() =>
-    localStorage.getItem("authTokens")
-      ? JSON.parse(localStorage.getItem("authTokens"))
-      : null
+  const [authTokens, setAuthTokens] = useState(() =>
+  localStorage.getItem("authTokens")
+    ? JSON.parse(localStorage.getItem("authTokens"))
+    : null
   );
+
   const [user, setUser] = useState(() =>
     localStorage.getItem("authTokens")
       ? jwt_decode(localStorage.getItem("authTokens"))
       : null
   );
+  
+  // para manejo de token
   const [loading, setLoading] = useState(true);
+
+  // para manejo de spinner
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -79,7 +85,9 @@ export const TurismorealProvider = ({ children }) => {
     setAuthTokens,
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    isLoading, 
+    setIsLoading
   };
 
   useEffect(() => {
