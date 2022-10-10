@@ -31,7 +31,7 @@ const DeptoListItem = (props) => {
         <p className=""><small className="text-muted">Habitaciones: {qty_rooms}</small></p>
         
         <Link to={`/depto/${id}`}
-              className='btn btn-outline-primary'
+              className='btn btn-outline-primary mb-3'
               >
             ...Ver Más
         </Link>

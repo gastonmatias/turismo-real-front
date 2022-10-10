@@ -9,7 +9,6 @@ import getDeptoById from '../../../services/getDeptoById';
 import Loader from '../../UI/Spinner';
 import TurismorealContext from '../../../context/TurismorealContext';
 
-
 const DeptoDetail = () => {
 
   useEffect(() => {
@@ -50,7 +49,7 @@ const DeptoDetail = () => {
             <Card.Body>
               <Card.Title className='display-5'>{depto.commune}</Card.Title>
               <Card.Text>
-                {depto.long_description}
+                {depto.department_type}
               </Card.Text>
             </Card.Body>
 
@@ -58,7 +57,7 @@ const DeptoDetail = () => {
               <ListGroup.Item><b>Precio:       </b> ${depto.price}</ListGroup.Item>
               <ListGroup.Item><b>Región:       </b>  {depto.region} </ListGroup.Item>
               <ListGroup.Item><b>Direción:     </b>  {depto.address} </ListGroup.Item>
-              <ListGroup.Item><b>Tipo:         </b>  {depto.short_description} </ListGroup.Item>
+              <ListGroup.Item><b>Descripción:         </b>  {depto.long_description} </ListGroup.Item>
               <ListGroup.Item><b>Habitaciones: </b>  {depto.qty_rooms} </ListGroup.Item>
             </ListGroup>
 

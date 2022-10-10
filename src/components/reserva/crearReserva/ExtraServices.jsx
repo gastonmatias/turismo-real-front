@@ -9,7 +9,7 @@ import { MdEmojiTransportation,MdOutlineNordicWalking,MdFamilyRestroom } from "r
 
 import getExtraServices from '../../../services/getExtraServices';
 
-const ExtraServices = ({setSelectedServices,selectedServices}) => {
+const ExtraServices = ({setSelectedServices,selectedServices,setAmountServices,amountServices}) => {
   
     useEffect(() => {
         getServices()
@@ -18,7 +18,6 @@ const ExtraServices = ({setSelectedServices,selectedServices}) => {
     const [services, setServices] = useState([]);
     const [servicesNames, setServicesNames] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [checked, setChecked] = useState(false);
     
     const getServices = async() => {
       const resp = await getExtraServices()
@@ -26,28 +25,25 @@ const ExtraServices = ({setSelectedServices,selectedServices}) => {
     }
 
     const handleSelect = () => {
-      setSelectedServices([])
-      setServicesNames([])
       setShowModal(true)
     }
     const handleCloseModal = () => setShowModal(false);
-    const handleClickServices = () => setShowModal(false)
     
     const handleChangeCheckbox = (e) => {
       
       if(e.currentTarget.checked){
-          setSelectedServices([...selectedServices,e.target.value])
-          setServicesNames([...servicesNames,e.target.name])
-          setChecked(e.target.checked)              
+          setSelectedServices([...selectedServices,Number(e.target.value)])
+          setServicesNames([...servicesNames,e.target.name])         
+          setAmountServices([...amountServices,Number(e.target.id)])
         }
 
-        if(!e.currentTarget.checked) {
-            setSelectedServices(selectedServices.filter((x) => x !== e.target.value))
-            setServicesNames(servicesNames.filter((x) => x !== e.target.name))
-            setChecked(e.currentTarget.checked)              
-        }
+      if(!e.currentTarget.checked) {
+          setSelectedServices(selectedServices.filter((x) => x !== Number(e.target.value)))
+          setServicesNames(servicesNames.filter((x) => x !== e.target.name))     
+          setAmountServices(amountServices.filter((x) => x !== Number(e.target.id)))     
+      }      
     }
-    
+
     return (
     <>
 
@@ -90,15 +86,14 @@ const ExtraServices = ({setSelectedServices,selectedServices}) => {
                         name={e.name}
                         key={e.id}
                         onChange={handleChangeCheckbox}
+                        checked={selectedServices.includes(e.id)}
+                        id={e.price}
                     />
                 ))}
             </div>       
             <Modal.Footer>
-             <Button variant="primary" onClick={handleClickServices}>
+             <Button variant="primary" onClick={handleCloseModal}>
                 Seleccionar
-              </Button>
-              <Button variant="secondary" onClick={handleCloseModal}>
-                Cerrar
               </Button>
             </Modal.Footer>
         </Modal>

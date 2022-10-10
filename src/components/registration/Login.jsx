@@ -22,7 +22,12 @@ const Login = () => {
       <form className="Auth-form" onSubmit={handleSubmit}>
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Inicio de Sesión</h3>
-          
+          <div className="text-center">
+            No posees una cuenta?{" "}
+            <a className="link-primary" href='/registro' >
+              Regístrate aquí
+            </a>
+          </div>
           <div className="form-group mt-3">
             <label>Nombre de Usuario</label>
             <input

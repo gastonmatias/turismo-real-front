@@ -12,6 +12,19 @@ const addReservation = async (
   ) => {
   
   const url = `${url_django}/api_web/reserve/`;
+
+  let arrayServices
+
+  // si usuario no elige ningun servicio extra en form, setearlo como 1 (equivalente a NA en bd)
+  // de lo contrario, setearlo como el array qe venga
+  if (selectedServices.length > 0) {
+    arrayServices = selectedServices
+  }else {
+    
+    arrayServices = [1]
+  }
+
+  
   
   const body ={
     total_amount,
@@ -21,7 +34,7 @@ const addReservation = async (
     check_out,
     user_id,
     department_id,
-    selectedServices
+    selectedServices: arrayServices
   }
 
   const opt = {
@@ -41,6 +54,8 @@ const addReservation = async (
       if (data === null || data === undefined) {
         return console.log("Hubo un error al añadir la reservacion");
       }
+
+      console.log(data)
   
       return data;
   
