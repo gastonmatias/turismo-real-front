@@ -4,7 +4,7 @@ import { useParams} from "react-router-dom"
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-import CrearReserva from '../../reserva/crearReserva/CrearReserva';
+import Booking from '../../reservation/booking/Booking';
 import getDeptoById from '../../../services/getDeptoById';
 import Loader from '../../UI/Spinner';
 import TurismorealContext from '../../../context/TurismorealContext';
@@ -69,7 +69,7 @@ const DeptoDetail = () => {
         }
 
         {showFormReserva && 
-          <CrearReserva handleClickForm={handleClickForm} 
+          <Booking handleClickForm={handleClickForm} 
                         capacidad={(depto.qty_rooms)*2} 
                         deptoPrice={depto.price}
           />

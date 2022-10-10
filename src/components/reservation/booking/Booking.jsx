@@ -3,6 +3,7 @@ import React, { useState,useContext,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {BsFillPeopleFill } from "react-icons/bs";
+import {toast} from 'react-toastify';
 
 import DateDisponibility from './DateDisponibility';
 import ExtraServices from './ExtraServices';
@@ -10,7 +11,7 @@ import addReservation from '../../../services/addReservation';
 import TurismorealContext from '../../../context/TurismorealContext';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const CrearReserva = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
+const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
 
     useEffect(() => {
       window.scrollTo(0, 0)
@@ -51,10 +52,19 @@ const CrearReserva = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
   
     const handleSubmit = async (e) => {
       e.preventDefault()
-      
       if (user ===null) {
         navigate('/login')
       }else {
+        toast.info('Redireccionando a Webpay', {
+          position: "bottom-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
         await newReservation()
       }
     }
@@ -123,4 +133,4 @@ const CrearReserva = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
   )
 }
 
-export default CrearReserva
+export default Booking

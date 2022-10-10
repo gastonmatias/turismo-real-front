@@ -3,9 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
-import InputGroup from 'react-bootstrap/InputGroup';
 import { BsClipboardCheck } from "react-icons/bs";
-import { MdEmojiTransportation,MdOutlineNordicWalking,MdFamilyRestroom } from "react-icons/md";
+import { MdEmojiTransportation,MdOutlineNordicWalking } from "react-icons/md";
 
 import getExtraServices from '../../../services/getExtraServices';
 

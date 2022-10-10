@@ -1,22 +1,21 @@
 //https://www.npmjs.com/package/react-date-range 
 import React, { useState, useEffect } from 'react';
+import { DateRange } from 'react-date-range';
 
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css fil
 import Form from 'react-bootstrap/Form';
 
-import { DateRange } from 'react-date-range';
-
 import getDisponibilityByDepto from '../../../services/getDisponibilityByDepto';
-import Loader from '../../UI/Spinner';
+
 
 const DateDisponibility = ({range,setRange,setDays,setCheckIn,setCheckOut,idDepto}) => {
    
     useEffect(() => {
         getDisponibility()
-    }, []);
+    }, [idDepto]);
 
-    const [disabledDates, setDisabledDates] = useState([]);
+    const [disabledDates, setDisabledDates] = useState(0);
 
     // obtiene fechas NO disponibles x depto y las setea
     const getDisponibility = async() => {
@@ -54,7 +53,7 @@ const DateDisponibility = ({range,setRange,setDays,setCheckIn,setCheckOut,idDept
       <Form.Group className="mb-3 row">
         <Form.Label className='p col-12'>Fecha Ingreso/Salida</Form.Label>
 
-        {disabledDates.length>0 ?
+        {disabledDates!==0 ?
         <DateRange className='col-8'
         editableDateInputs={true}
         onChange={handleDateRangeChange}

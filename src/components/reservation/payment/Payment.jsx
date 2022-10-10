@@ -1,13 +1,15 @@
 import React from 'react'
-import {Navigate, useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { toast } from 'react-toastify';
 
 import visa from '../../../assets/payment/visa.jpg'
 import mastercard from '../../../assets/payment/mastercard.png'
 import amex from '../../../assets/payment/amex.png'
+
 import './payment.css'
 
 const Payment = () => {
@@ -29,6 +31,16 @@ const Payment = () => {
   const handleSubmit = () => {
     //await new saveTransaction()
     //redirect mis reservas
+    toast.success('Reserva creada exitosamente! ', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
     navigate(`/mis-reservas`)
     
   }
