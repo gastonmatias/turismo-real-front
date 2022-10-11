@@ -1,68 +1,67 @@
-import React, { useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
+
+import {GrInfo } from "react-icons/gr";
+import {BsFillInfoCircleFill } from "react-icons/bs";
+import {MdOutlineFreeCancellation } from "react-icons/md";
+import {BiEditAlt } from "react-icons/bi";
+import {MdOutlineContactPhone } from "react-icons/md";
 
 import ListGroup from 'react-bootstrap/ListGroup';
-
+import TurismorealContext from '../../../context/TurismorealContext';
+import getReservationsByClientId from '../../../services/getReservationsByClient';
+import Loader from '../../UI/Spinner';
 import BookingListItem from './BookingListItem';
 
 
 const BookingList = () => {
-  
+    
+    const {user,isLoading, setIsLoading} = useContext(TurismorealContext)  
+    
+    useEffect(() => {
+        getReservas()
+    }, [user.user_id]);
 
-    let reservationsByUserId = [
-        {
-            "reservation_id":"1",
-            "total_amount":  "136.590",
-            "qty_customers": "5",
-            "check_in":      "15/10/2022",
-            "check_out":     "20/10/2022",
-            "status":        "1",
-            "user_id":       "21",
-            "commune":       "Valdivia",
-            "region":        "Los Rios",
-            "capacidad":     5,
-            "extra_service": "pique toreto, acercamiento, lavadita auto"
+    const [bookings, setBookings] = useState([]);
 
-        },
-        {
-            "reservation_id":"2",
-            "total_amount":  "149.990",
-            "qty_customers": "5",
-            "check_in":      "25/10/2022",
-            "check_out":     "29/10/2022",
-            "status":        "0",
-            "user_id":       "21",
-            "commune":       "Castro",
-            "region":        "Chiloe",
-            "capacidad":     5,
-            "extra_service": "acercamiento"
-        }
-    ]
+    const getReservas = async() => {
+        setIsLoading(true)
+        const resp = await getReservationsByClientId(user.user_id)
+        setBookings(resp)
+        setIsLoading(false)
+    }
 
-    let misReservas = reservationsByUserId.map((e) => {
-        
+    let reservationsFormat = bookings.map((e) => {
         let status;
-        
-        if (e.status ==='1') {
-            status = 'Activo'
-        }
-        
-        if (e.status ==='0') {
-            status = 'Cancelado'
-        }
-
-        return {
-            ...e,
-            status
-        }
+        let capacidad = (e.qty_rooms)*2;
+        if (e.status === 1) status = 'Activo'
+        if (e.status === 0) status = 'Cancelado'
+        return {...e,status,capacidad}
     })
 
-  
     return (
-    <div className='container my-3'>
-        <ListGroup as="ol" numbered>
-            {misReservas.map((e) => <BookingListItem key={e.reservation_id}{...e} /> )}
-        </ListGroup>
-    </div>
+    <>
+    { !isLoading && 
+        <div className='container my-3'>
+            <h1 className='display-5'>Mis Reservas</h1>
+            
+            <ListGroup as="ol" numbered className='d-flex justify-content-center'>
+            {reservationsFormat.map((e) => <BookingListItem key={e.id}{...e} /> )}
+            </ListGroup>
+
+            <div className='border border-dark rounded px-3 mx-5 mt-1' style={{width: "50%"}}>
+                <p className='my-1'><BsFillInfoCircleFill/> </p>
+                <p className='my-1'>Estimado cliente, por favor tenga en cuenta estas condiciones a la hora de gestionar sus reservas:</p>
+                <p className='my-1'><BiEditAlt/> Podrá actualizar el número de acompañantes si así lo requiere</p>
+                <p className='my-1'><MdOutlineFreeCancellation/> Para cambios de check in/out deberá cancelar su actual reserva</p>
+                <p className='my-1'><MdOutlineContactPhone/> Para cancelar/solicitar nuevo servicio extra deberá contactar al administrador</p>
+                   
+            </div>
+        </div>
+    }
+    {isLoading && 
+        <Loader type="full" variant="light" animation="border" />
+    }
+    </>
   )
 }
 

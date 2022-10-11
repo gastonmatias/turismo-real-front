@@ -14,18 +14,28 @@ const BookingDetail = () => {
 
     /* console.log('props.capacidad',props) */
 
-    
-    /* console.log('props bookking detail', props); */
+    //console.log('props.status.contains(Activo)',props.contains(status:'Activo'));
+    //console.log('props bookking detail', props);
+    const handleCustomers = () => {
+      //return props.status.contains('Activo')
+      //if(props.status==='Cancelado'){ 
+      return false
+    }
 
   return (
-    <div className='container mt-3'>
-        <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+    <div className='container mt-3 d-flex justify-content-center'>
+        <Form className='border border-light rounded px-5 mx-5'>
+            <Form.Group className="mb-3" >
+                <Form.Label>Destino</Form.Label>
+                <Form.Control type="text" value={`${props.commune}, ${props.region}`} disabled/>
+            </Form.Group>
+
+            <Form.Group className="mb-3" >
                 <Form.Label>Check In</Form.Label>
                 <Form.Control type="text" value={props.check_in} disabled/>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" >
                 <Form.Label>Check Out</Form.Label>
                 <Form.Control type="text" value={props.check_out} disabled/>
             </Form.Group>
@@ -36,28 +46,35 @@ const BookingDetail = () => {
                 </Form.Label>
                 <Form.Control min='0' max={props.capacidad} 
                       value={qtyCustomers} onChange={(e)=>setQtyCustomers(e.target.value)} 
-                      type="number" placeholder="" style={{width:"60%"}}
+                      type="number" placeholder="" style={{width:"20%"}}
+                      disabled={props.status==='Cancelado' ? true: false}
                     />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Group className="mb-3" >
                 <Form.Label>
                     Servicios Extra
                 </Form.Label>
-              <ul>{props.extra_service}</ul>
+              <ul>{props.commune}</ul>
             </Form.Group>
 
-          <Button variant="primary" type="submit" className='mx-3'>
+          {(props.status==='Activo') &&
+          <div className=''>
+          <Button variant="primary" type="submit" className='me-3'>
             Actualizar Reserva
           </Button>
 
-          <Button variant="danger" >
+          <Button variant="danger" className=''>
             Cancelar Reserva
           </Button>
+          </div>
+          }
 
-          <a className='navlink mx-3 block'>
-            volver
-          </a>
+          <div className='py-4'>
+            <a className="text-primary" href='/mis-reservas'>
+              Volver
+            </a>
+          </div>
         </Form>
     </div>
   )

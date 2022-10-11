@@ -19,7 +19,7 @@ const DeptoListItem = (props) => {
 
   return (
     
-    <div className="row my-2 mx-2 border">
+    <div className="row my-2 mx-2 border rounded">
       <div className='col-md-6 col-sm-12' >
         <img className="img-fluid" src={`data:image/jpg;base64,${department_image}`} alt="image depto"/>
       </div>

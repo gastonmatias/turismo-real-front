@@ -2,22 +2,43 @@ import React from 'react'
 import { useContext } from 'react'
 import TurismorealContext from '../../context/TurismorealContext'
 
+import { toast } from 'react-toastify';
+
 import './registration.css'
+import Loader from '../UI/Spinner';
 
 const Login = () => {
   
-  const {loginUser} = useContext(TurismorealContext)
+  const {loginUser,setIsLoading,isLoading} = useContext(TurismorealContext)
 
-  const handleSubmit = e => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
-    username.length > 0 && loginUser(username, password);
+    
+    if (username.length > 0 && password.length > 0) {
+      setIsLoading(true)
+      await loginUser(username, password)
+      setIsLoading(false)
+    }else {  
+      toast.error('Oops! Por favor ingresa tus crendeciales', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+    
   };
 
   
   return (
-
+    <>
+    {isLoading && <Loader type="full" variant="light" animation="border"/>}
     <div className="Auth-form-container">
       <form className="Auth-form" onSubmit={handleSubmit}>
         <div className="Auth-form-content">
@@ -58,7 +79,7 @@ const Login = () => {
         </div>
       </form>
     </div>
-
+  </>
   )
 }
 

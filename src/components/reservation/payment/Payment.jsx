@@ -47,7 +47,7 @@ const Payment = () => {
 
   return (
         <>
-    <div className="container mt-5 ">
+    <div className="container mt-5 d-flex justify-content-center">
         <div className="card-group">
          
         <Card style={{ width: '18rem' }}>
@@ -55,23 +55,23 @@ const Payment = () => {
                 <Card.Body>
                   <Card.Title className='display-5 mb-4'>Resumen</Card.Title>
                       <div className='botonera mb-3 d-flex flex-column text-center border border-grey py-2'>
-                        <div className="procesador my-2 border border-grey my-1 mx-5 py-1">
+                        <div className="procesador my-2 border border-warning rounded my-1 mx-5 py-1">
                           <Card.Img className='img-procesador' variant="top" src={visa} />
                         </div>
 
-                        <div className="procesador my-2 border border-grey my-1 mx-5 py-1">
+                        <div className="procesador my-2 border border-danger rounded my-1 mx-5 py-1">
                           <Card.Img className='img-procesador' variant="top" src={mastercard} />
                         </div>
 
-                        <div className="procesador my-2 border border-grey my-1 mx-5 py-1">
+                        <div className="procesador my-2 border border-primary rounded my-1 mx-5 py-2">
                           <Card.Img className='img-procesador' variant="top" src={amex} />
                         </div>
 
 
                       </div>{/* fin botonera */}
                      
-                  <div className='mx-2'>
-                    <p className='display-6 border border-grey px-2'><strong>Monto: </strong>${reservationAmount}</p>
+                  <div className=''>
+                    <p className='display-6 border px-2 text-center'><strong>Monto: </strong>${reservationAmount}</p>
                   </div>
                 </Card.Body>
             </Card>

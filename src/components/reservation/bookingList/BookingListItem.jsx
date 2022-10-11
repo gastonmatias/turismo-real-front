@@ -45,7 +45,7 @@ const BookingListItem = (props) => {
   
         {!showBookingDetail ? 
         <ListGroup.Item style={{cursor: "pointer"}} onClick={handleClickBookingItem}
-        className="d-flex justify-content-between align-items-start mb-2 border">
+        className="d-flex justify-content-center align-items-start mb-2 border">
           <div className="ms-2 me-auto">
             <div className="fw-bold">
                 {commune}
@@ -54,7 +54,7 @@ const BookingListItem = (props) => {
           </div>
 
             <div className='d-flex align-items-center'>
-                <Badge bg={statusFormat} className='py-2'  pill>
+                <Badge bg={statusFormat} className='py-2 mt-2 me-2'  pill>
                   {status}
                 </Badge>
             </div>

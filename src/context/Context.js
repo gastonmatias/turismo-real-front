@@ -22,7 +22,7 @@ export const TurismorealProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // para manejo de spinner
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 

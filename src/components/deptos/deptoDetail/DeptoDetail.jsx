@@ -42,7 +42,7 @@ const DeptoDetail = () => {
     
     {!isLoading &&
     
-      <div className='container'>
+      <div className='container mt-1 mb-3'>
         {!showFormReserva &&
           <Card >
             <Card.Img variant="top" className='img img-fluid' src={`data:image/jpeg;base64,${depto.department_image}`} />
