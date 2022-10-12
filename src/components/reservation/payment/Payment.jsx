@@ -1,4 +1,5 @@
 import React from 'react'
+import { useContext } from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 
 import Form from 'react-bootstrap/Form';
@@ -10,12 +11,16 @@ import visa from '../../../assets/payment/visa.jpg'
 import mastercard from '../../../assets/payment/mastercard.png'
 import amex from '../../../assets/payment/amex.png'
 
+import TurismorealContext from '../../../context/TurismorealContext';
+
 import './payment.css'
+import { sendEmailJS } from '../../../helpers/sendEmailJS';
 
 const Payment = () => {
   
   const location = useLocation()
   const navigate = useNavigate()
+  const {user} = useContext(TurismorealContext)
 
   const {state:{reservationAmount,id_reservation}} = location
 
@@ -28,9 +33,8 @@ const Payment = () => {
     */
   }
   
-  const handleSubmit = () => {
-    //await new saveTransaction()
-    //redirect mis reservas
+  const handlePayBtn = (e) => {
+    e.preventDefault()
     toast.success('Reserva creada exitosamente! ', {
       position: "top-center",
       autoClose: 2000,
@@ -41,10 +45,11 @@ const Payment = () => {
       progress: undefined,
       theme: "dark",
       });
-    navigate(`/mis-reservas`)
-    
+      
+    sendEmailJS(user.username,user.email,id_reservation)  
+    //navigate(`/mis-reservas`)
   }
-
+  
   return (
         <>
     <div className="container mt-5 d-flex justify-content-center">
@@ -80,7 +85,7 @@ const Payment = () => {
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                 <Card.Body>
                   <Card.Title className='display-5 mb-4'>Pago Reserva</Card.Title>
-                  <Form className='row' onSubmit={handleSubmit}>
+                  <Form className='row'>
                       <Form.Group className="mb-3" >
                         <Form.Label>Titular Tarjeta</Form.Label>
                         <Form.Control  placeholder="Nombre" />
@@ -114,17 +119,17 @@ const Payment = () => {
                       </Form.Group>
 
                       <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Button variant="primary" className='' type="submit">
+                        <Button variant="primary" className='' onClick={handlePayBtn}>
                           PAGAR
                         </Button>
                         <a className='link mx-5' href='/departamentos'>Cancelar</a>
                       </Form.Group>
+
                     </Form>
 
                 </Card.Body>
             </Card>
 
-        
     </div>{/* end carg group */}
 
     </div> 

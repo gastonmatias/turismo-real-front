@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {BsFillPeopleFill } from "react-icons/bs";
+import cancelReservation from '../../../services/cancelReservation';
 
 const BookingDetail = () => {
 
@@ -12,15 +13,17 @@ const BookingDetail = () => {
 
     const [qtyCustomers, setQtyCustomers] = useState(0);
 
-    /* console.log('props.capacidad',props) */
-
-    //console.log('props.status.contains(Activo)',props.contains(status:'Activo'));
-    //console.log('props bookking detail', props);
     const handleCustomers = () => {
       //return props.status.contains('Activo')
       //if(props.status==='Cancelado'){ 
       return false
     }
+
+  const handleCancelClick = async() => {
+    const resp = await cancelReservation(props.id)
+    console.log(resp)
+
+  }
 
   return (
     <div className='container mt-3 d-flex justify-content-center'>
@@ -64,7 +67,7 @@ const BookingDetail = () => {
             Actualizar Reserva
           </Button>
 
-          <Button variant="danger" className=''>
+          <Button variant="danger" className='' onClick={handleCancelClick}>
             Cancelar Reserva
           </Button>
           </div>

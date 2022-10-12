@@ -8,7 +8,7 @@ import BookingDetail from './BookingDetail';
 const BookingListItem = (props) => {
   
     const {
-        reservation_id,
+        id,
         total_amount,
         qty_customers,
         check_in,
@@ -34,7 +34,7 @@ const BookingListItem = (props) => {
 
     const handleClickBookingItem = () => {
         setShowBookingDetail(!showBookingDetail)
-        navigate(`/mis-reservas/${reservation_id}`,{state:{props}})
+        navigate(`/mis-reservas/${id}`,{state:{props}})
     } 
 
     return (
@@ -45,7 +45,7 @@ const BookingListItem = (props) => {
         className="d-flex justify-content-center align-items-start mb-2 border">
           <div className="ms-2 me-auto">
             <div className="fw-bold">
-                {commune}
+                {commune} [ID Reserva: {id}]
             </div>
             {check_in} - {check_out}
           </div>

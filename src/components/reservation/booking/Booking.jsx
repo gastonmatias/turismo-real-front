@@ -10,6 +10,7 @@ import ExtraServices from './ExtraServices';
 import addReservation from '../../../services/addReservation';
 import TurismorealContext from '../../../context/TurismorealContext';
 import { useNavigate, useParams } from 'react-router-dom';
+import { sendEmailJS } from '../../../helpers/sendEmailJS';
 
 const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
 
@@ -34,6 +35,8 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
     let totalAmount = arriendoAmount + servicesAmount
     let reservationAmount = totalAmount/10
 
+
+
     const newReservation = async() => {
       const resp = await addReservation(
         totalAmount,//total_amount
@@ -45,8 +48,9 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
         idDepto,//department_id
         selectedServices
       )      
-
+      
       const {id_reservation} = resp;
+
       navigate('/payment',{state:{reservationAmount,id_reservation}})
     }
   
