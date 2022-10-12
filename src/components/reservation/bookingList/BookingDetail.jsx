@@ -47,7 +47,7 @@ const BookingDetail = () => {
                 <Form.Control min='0' max={props.capacidad} 
                       value={qtyCustomers} onChange={(e)=>setQtyCustomers(e.target.value)} 
                       type="number" placeholder="" style={{width:"20%"}}
-                      disabled={props.status==='Cancelado' ? true: false}
+                      disabled={props.status!=='Reservado' ? true: false}
                     />
             </Form.Group>
 
@@ -58,7 +58,7 @@ const BookingDetail = () => {
               <ul>{props.commune}</ul>
             </Form.Group>
 
-          {(props.status==='Activo') &&
+          {(props.status==='Reservado') &&
           <div className=''>
           <Button variant="primary" type="submit" className='me-3'>
             Actualizar Reserva

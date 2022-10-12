@@ -33,8 +33,10 @@ const BookingList = () => {
     let reservationsFormat = bookings.map((e) => {
         let status;
         let capacidad = (e.qty_rooms)*2;
-        if (e.status === 1) status = 'Activo'
-        if (e.status === 0) status = 'Cancelado'
+        if (e.status === 1) status = 'Reservado'
+        if (e.status === 2) status = 'Estadía Activa'
+        if (e.status === 3) status = 'Estadía Terminada'
+        if (e.status === 4) status = 'Cancelado'
         return {...e,status,capacidad}
     })
 

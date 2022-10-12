@@ -27,13 +27,10 @@ const BookingListItem = (props) => {
 
     let statusFormat
 
-    if (status ==='Cancelado') {
-        statusFormat = 'danger'
-    }
-  
-    if (status ==='Activo') {
-        statusFormat = 'success'
-    }    
+    if (status ==='Reservado')    statusFormat = 'success'
+    if (status ==='Estadía Activa') statusFormat = 'primary'
+    if (status ==='Estadía Terminada') statusFormat = 'secondary'
+    if (status ==='Cancelado') statusFormat = 'danger'
 
     const handleClickBookingItem = () => {
         setShowBookingDetail(!showBookingDetail)

@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
+
+import { toast } from 'react-toastify';
+
 import TurismorealContext from '../../context/TurismorealContext';
+import Loader from '../UI/Spinner';
 import './registration.css'
 
 const Register = () => {
   
-  const {registerUser} = useContext(TurismorealContext)
+  const {registerUser,setIsLoading,isLoading} = useContext(TurismorealContext)
 
-  const [username, setUsername] = useState();
-  const [nombre, setNombre] = useState();
-  const [apellido, setApellido] = useState();
-  const [email, setEmail] = useState();
-  const [pass1, setPass1] = useState();
-  const [pass2, setPass2] = useState();
+  const [username, setUsername] = useState('');
+  const [nombre, setNombre]     = useState('');
+  const [apellido, setApellido] = useState('');
+  const [email, setEmail]       = useState('');
+  const [pass1, setPass1]       = useState('');
+  const [pass2, setPass2]       = useState('');
 
 
   const handleUsernameChange = (e) => {
@@ -39,14 +43,46 @@ const Register = () => {
     setApellido(e.target.value)
   }
 
-  const handleRegisterUser = (e) => {
+  const handleRegisterUser = async(e) => {
     e.preventDefault()
-    registerUser(username, nombre,apellido,email, pass1,pass2)
+
+    if (username===''||nombre===''||apellido===''||email===''||pass1===''||pass2===''){
+      toast.error('Oops! Por favor rellena todos los campos', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+
+    if(pass1 !== pass2){
+      toast.error('Oops! las contraseñas no coinciden!', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+    
+    else{
+      setIsLoading(true)
+      await registerUser(username, nombre,apellido,email, pass1,pass2)
+      setIsLoading(false)
+    }
   }
   
   return (
+    <>
+    {isLoading && <Loader type="full" variant="light" animation="border"/>}
     <div className="Auth-form-container">
-      
       <form className="Auth-form" onSubmit={handleRegisterUser}>
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Registro de Usuario</h3>
@@ -128,6 +164,7 @@ const Register = () => {
         </div>
       </form>
     </div>
+  </>
   )
 }
 
