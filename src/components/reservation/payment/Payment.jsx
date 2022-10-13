@@ -5,7 +5,6 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { toast } from 'react-toastify';
 
 import visa from '../../../assets/payment/visa.jpg'
 import mastercard from '../../../assets/payment/mastercard.png'
@@ -15,6 +14,7 @@ import TurismorealContext from '../../../context/TurismorealContext';
 
 import './payment.css'
 import { sendEmailJS } from '../../../helpers/sendEmailJS';
+import alertToast from '../../UI/alertToast';
 
 const Payment = () => {
   
@@ -35,18 +35,8 @@ const Payment = () => {
   
   const handlePayBtn = (e) => {
     e.preventDefault()
-    toast.success('Reserva creada exitosamente! ', {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      });
-      
-    sendEmailJS(user.username,user.email,id_reservation)  
+    alertToast('success','Reserva creada exitosamente!','top-center','dark')
+    sendEmailJS(user.username,user.email,id_reservation)
     navigate(`/mis-reservas`)
   }
   

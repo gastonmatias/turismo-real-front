@@ -3,13 +3,13 @@ import React, { useState,useContext,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {BsFillPeopleFill } from "react-icons/bs";
-import {toast} from 'react-toastify';
 
 import DateDisponibility from './DateDisponibility';
 import ExtraServices from './ExtraServices';
 import addReservation from '../../../services/addReservation';
 import TurismorealContext from '../../../context/TurismorealContext';
 import { useNavigate, useParams } from 'react-router-dom';
+import alertToast from '../../UI/alertToast';
 
 const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
 
@@ -24,8 +24,8 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
     const [selectedServices, setSelectedServices] = useState([]);
     const [amountServices, setAmountServices] = useState([0]);
     const [range, setRange] = useState([{startDate: new Date(),endDate: new Date(),key:'selection'}]);
-    const [days, setDays] = useState(1);
-    const [qtyCustomers, setQtyCustomers] = useState(0);
+    const [days, setDays] = useState(0);
+    const [qtyCustomers, setQtyCustomers] = useState(1);
     const [checkIn,  setCheckIn]  = useState('-');
     const [checkOut, setCheckOut] = useState('-');
 
@@ -56,16 +56,7 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
       if (user ===null) {
         navigate('/login')
       }else {
-        toast.info('Redireccionando a Webpay', {
-          position: "bottom-center",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
+        alertToast('info','Redireccionando a Webpay','bottom-center','dark')
         await newReservation()
       }
     }
@@ -95,7 +86,7 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
         </Form.Label>
         <Form.Control min='0' max={capacidad} 
                       value={qtyCustomers} onChange={(e)=>setQtyCustomers(e.target.value)} 
-                      type="number" placeholder="" style={{width:"60%"}}/>
+                      type="number" placeholder="" style={{width:"fit-content"}}/>
       </Form.Group>
 
       <ExtraServices 

@@ -2,58 +2,37 @@ import {toast} from 'react-toastify';
 
 const alertToast = (type,msg,position,theme) => {
     
+    let options = {
+        position,
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme
+    }
+
     switch (type) {
         case 'info':
-            toast.info(msg, {
-                position,
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme
-            });
+            toast.info(msg,options)
             break;
         
         case 'success':
-            toast.success(msg, {
-                position,
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme
-            });
+            toast.success(msg,options)
             break;    
 
         case 'warning':
-            toast.warn(msg, {
-                position,
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme
-            });
+            toast.warn(msg,options)
             break;
 
         case 'error':
-            toast.error(msg, {
-                position,
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme
-            });
-            break;      
+            toast.error(msg,options)
+            break;   
+        
+        case 'default':
+            toast(msg,options);
+            break;                     
 
         default:
             break;
