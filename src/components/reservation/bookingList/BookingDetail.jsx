@@ -26,8 +26,8 @@ const BookingDetail = () => {
   }
 
   return (
-    <div className='container mt-3 d-flex justify-content-center'>
-        <Form className='border border-light rounded px-5 mx-5'>
+    <div className='d-flex justify-content-center mt-3'>
+        <Form className='border border-secondary rounded px-5 mx-5'>
             <Form.Group className="mb-3" >
                 <Form.Label>Destino</Form.Label>
                 <Form.Control type="text" value={`${props.commune}, ${props.region}`} disabled/>
@@ -45,11 +45,11 @@ const BookingDetail = () => {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>
-                    Numero de Acompañantes <BsFillPeopleFill/> (Máx. {props.capacidad})
+                    Numero de Asistentes <BsFillPeopleFill/> (Máx. {props.capacidad})
                 </Form.Label>
                 <Form.Control min='0' max={props.capacidad} 
                       value={qtyCustomers} onChange={(e)=>setQtyCustomers(e.target.value)} 
-                      type="number" placeholder="" style={{width:"20%"}}
+                      type="number" placeholder="" style={{width:"fit-content"}}
                       disabled={props.status!=='Reservado' ? true: false}
                     />
             </Form.Group>
@@ -62,18 +62,20 @@ const BookingDetail = () => {
             </Form.Group>
 
           {(props.status==='Reservado') &&
-          <div className=''>
-          <Button variant="primary" type="submit" className='me-3'>
-            Actualizar Reserva
-          </Button>
+          <div className='row'>
+            <Button variant="primary" type="submit" 
+                    className='col-12 col-lg-4 mb-3 me-5'>
+              Actualizar Reserva
+            </Button>
 
-          <Button variant="danger" className='' onClick={handleCancelClick}>
-            Cancelar Reserva
-          </Button>
+            <Button variant="danger" onClick={handleCancelClick}
+                    className='col-12 col-lg-4 mb-3'>
+              Cancelar Reserva
+            </Button>
           </div>
           }
 
-          <div className='py-4'>
+          <div className='pb-3'>
             <a className="text-primary" href='/mis-reservas'>
               Volver
             </a>

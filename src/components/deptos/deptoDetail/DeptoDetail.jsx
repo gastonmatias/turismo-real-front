@@ -42,8 +42,9 @@ const DeptoDetail = () => {
     
     {!isLoading &&
     
-      <div className='container mt-1 mb-3'>
+    <div className='container mt-1 mb-3'>
         {!showFormReserva &&
+          <>
           <Card >
             <Card.Img variant="top" className='img img-fluid' src={`data:image/jpeg;base64,${depto.department_image}`} />
             <Card.Body>
@@ -61,11 +62,18 @@ const DeptoDetail = () => {
               <ListGroup.Item><b>Habitaciones: </b>  {depto.qty_rooms} </ListGroup.Item>
             </ListGroup>
 
-            <Card.Body>
-              <button onClick={handleClickForm} className='btn btn-primary mx-2 px-5' href="#">Reservar!</button>
-              <button className='btn btn-success mx-2 px-5' href="#">Ver Disponibilidad</button>
-            </Card.Body>
-          </Card>
+            {/* <Card.Body> */}
+              {/* <button className='btn btn-success mx-2 px-5' href="#">Ver Disponibilidad</button> */}
+            {/* </Card.Body> */}
+            {/* <div className='d-flex justify-content-center'> */}
+            </Card>
+            <div className='row mx-1'>
+              <button onClick={handleClickForm} 
+                      className='btn btn-primary my-2 col-12'>
+                Reservar!
+              </button>
+            </div>
+        </>
         }
 
         {showFormReserva && 

@@ -21,7 +21,7 @@ const getReservationsByClientId = async (id) => {
         return console.log("Hubo un error al obtener reservations");
       }
   
-      const result = data.services;
+      const result = data.reservas;
   
       return result;
   

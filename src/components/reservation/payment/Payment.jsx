@@ -47,7 +47,7 @@ const Payment = () => {
       });
       
     sendEmailJS(user.username,user.email,id_reservation)  
-    //navigate(`/mis-reservas`)
+    navigate(`/mis-reservas`)
   }
   
   return (
@@ -55,7 +55,7 @@ const Payment = () => {
     <div className="container mt-5 d-flex justify-content-center">
         <div className="card-group">
          
-        <Card style={{ width: '18rem' }}>
+        <Card >
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                 <Card.Body>
                   <Card.Title className='display-5 mb-4'>Resumen</Card.Title>
@@ -81,8 +81,7 @@ const Payment = () => {
                 </Card.Body>
             </Card>
 
-            <Card style={{ width: '18rem' }}>
-                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+            <Card >
                 <Card.Body>
                   <Card.Title className='display-5 mb-4'>Pago Reserva</Card.Title>
                   <Form className='row'>

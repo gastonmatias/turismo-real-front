@@ -50,7 +50,7 @@ const BookingList = () => {
             {reservationsFormat.map((e) => <BookingListItem key={e.id}{...e} /> )}
             </ListGroup>
 
-            <div className='border border-dark rounded px-3 mx-5 mt-1' style={{width: "50%"}}>
+            <div className='border border-dark rounded px-3 mx-5 mt-1' style={{width: "fit-content"}}>
                 <p className='my-1'><BsFillInfoCircleFill/> </p>
                 <p className='my-1'>Estimado cliente, por favor tenga en cuenta estas condiciones a la hora de gestionar sus reservas:</p>
                 <p className='my-1'><BiEditAlt/> Podrá actualizar el número de acompañantes si así lo requiere</p>

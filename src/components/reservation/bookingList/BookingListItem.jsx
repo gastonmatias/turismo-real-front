@@ -39,9 +39,7 @@ const BookingListItem = (props) => {
 
     return (
     <>
-  
-        {!showBookingDetail ? 
-        <ListGroup.Item style={{cursor: "pointer"}} onClick={handleClickBookingItem}
+      <ListGroup.Item style={{cursor: "pointer"}} onClick={handleClickBookingItem}
         className="d-flex justify-content-center align-items-start mb-2 border">
           <div className="ms-2 me-auto">
             <div className="fw-bold">
@@ -55,13 +53,7 @@ const BookingListItem = (props) => {
                   {status}
                 </Badge>
             </div>
-        </ListGroup.Item>
-        :
-        <BookingDetail handleClickBookingItem={handleClickBookingItem}  />
-    }
-    
-
-    
+      </ListGroup.Item>
     </>
   )
 }

@@ -10,7 +10,6 @@ import ExtraServices from './ExtraServices';
 import addReservation from '../../../services/addReservation';
 import TurismorealContext from '../../../context/TurismorealContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { sendEmailJS } from '../../../helpers/sendEmailJS';
 
 const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
 
@@ -34,8 +33,6 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
     let servicesAmount = amountServices.reduce((previous, current) => (previous + current),0)
     let totalAmount = arriendoAmount + servicesAmount
     let reservationAmount = totalAmount/10
-
-
 
     const newReservation = async() => {
       const resp = await addReservation(
@@ -84,7 +81,7 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
     return (
     
     <>
-    <Form className='mt-5 mb-5' onSubmit={handleSubmit}>
+    <Form className='mt-5 mb-5' onSubmit={handleSubmit} >
       
       <DateDisponibility range={range} setRange={setRange} 
                         setDays={setDays} 
@@ -92,9 +89,9 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
                         idDepto={idDepto}
                         />
       
-      <Form.Group className="mb-3" controlId="formBasicPassword">
+      <Form.Group className="mb-3" controlId="formBasicPassword" style={{width:'fit-content'}}>
         <Form.Label>
-          Numero de Acompañantes <BsFillPeopleFill/> (Máx. {capacidad})
+          Número de asistentes <BsFillPeopleFill/> (Máx. {capacidad})
         </Form.Label>
         <Form.Control min='0' max={capacidad} 
                       value={qtyCustomers} onChange={(e)=>setQtyCustomers(e.target.value)} 
@@ -108,25 +105,30 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
         amountServices={amountServices}
       />
 
-      <div className='py-3 ps-3  border border-dark' style={{width:'60%'}}>
-        <p className='display-6'><strong>Total:</strong> $ {totalAmount}</p>
+
+      <div className='py-3 ps-3 px-3 border border-dark' style={{width:'fit-content'}}>
+      {/* <div className='py-3 ps-3 px-3 border border-dark d-flex flex-column justify-content-center'> */}
+        <h1>Resumen</h1>
         <p className='display-7'><strong>Costo Arriendo:</strong> $ {arriendoAmount}</p>
         <p className='display-7'><strong>Costo Servicios Extra:</strong> $ {servicesAmount}</p>
         <p className='display-7'><strong>Días:</strong> {days}</p>
         <p className='display-7'><strong>Check In:</strong>  {checkInVisual}  12:00pm </p>
         <p className='display-7'><strong>Check Out:</strong> {checkOutVisual} 19:00pm </p>
-      </div>
-
-      <div className='py-1 ps-3 mb-3 border border-secondary' style={{width:'60%'}}>
+        <div className=' border border-secondary p-2'>
+        <p className='display-6'><strong>Total:</strong> $ {totalAmount}</p>
         <p className='display-6'><strong>Costo Reserva:</strong> ${reservationAmount}</p>
+        </div>
       </div>
+{/*       <div className='py-1 ps-3 mb-3 border border-secondary' style={{width:'fit-content'}}>
+        <p className='display-6'><strong>Costo Reserva:</strong> ${reservationAmount}</p>
+      </div> */}
       
-      <div>
-        <Button variant="primary" type='submit' disabled={checkIn==='-' ? true : ''}>
+      <div className='row mt-2 mx-1'>
+        <Button variant="primary"  className='col-12 col-lg-4 mb-2 me-2' type='submit' disabled={checkIn==='-' ? true : ''}>
           Reservar
         </Button>
 
-        <Button variant="secondary" className='ms-2' onClick={handleClickForm}>
+        <Button variant="secondary" className='col-12 col-lg-4 mb-2 ' onClick={handleClickForm}>
           Volver
         </Button>
       </div>
