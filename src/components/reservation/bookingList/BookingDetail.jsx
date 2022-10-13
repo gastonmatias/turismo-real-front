@@ -1,31 +1,51 @@
-import React, { useState } from 'react';
-import { useLocation} from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useLocation, useNavigate} from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {BsFillPeopleFill } from "react-icons/bs";
 import cancelReservation from '../../../services/cancelReservation';
+import confirmAction from '../../UI/confirmAction';
+import alertToast from '../../UI/alertToast';
+import TurismorealContext from '../../../context/TurismorealContext';
+import Loader from '../../UI/Spinner';
 
 const BookingDetail = () => {
 
-    const location = useLocation()
-    const {state:{props}} = location;
+  const {isLoading,setIsLoading} = useContext(TurismorealContext)
+  const location = useLocation()
+  const {state:{props}} = location;
+  const navigate = useNavigate()
 
-    const [qtyCustomers, setQtyCustomers] = useState(0);
+  const [qtyCustomers, setQtyCustomers] = useState(0);
 
-    const handleCustomers = () => {
-      //return props.status.contains('Activo')
-      //if(props.status==='Cancelado'){ 
-      return false
-    }
+  const handleCustomers = () => {
+    //return props.status.contains('Activo')
+    //if(props.status==='Cancelado'){ 
+      //alertToast('success','Reserva Actualizada!','top-center','dark')
+  }
+
+  const cancelarReserva = async() => {
+    setIsLoading(true)
+    await cancelReservation(props.id)
+    alertToast('success','Reserva Cancelada!','top-center','dark')
+    navigate('/mis-reservas')
+    setIsLoading(false)
+  }
 
   const handleCancelClick = async() => {
-    const resp = await cancelReservation(props.id)
-    console.log(resp)
+    confirmAction(
+      'Cancelación Reserva',
+      'Estás Seguro? Esta acción es irreversible',
+      cancelarReserva //fx sin ejecutar, aun
+    )
+  }
 
+  const handleUpdateClick = () => {
   }
 
   return (
+    <> {isLoading && <Loader type="full" animation="border" varian="light"/>}
     <div className='d-flex justify-content-center mt-3'>
         <Form className='border border-secondary rounded px-5 mx-5'>
             <Form.Group className="mb-3" >
@@ -63,13 +83,13 @@ const BookingDetail = () => {
 
           {(props.status==='Reservado') &&
           <div className='row'>
-            <Button variant="primary" type="submit" 
-                    className='col-12 col-lg-4 mb-3 me-5'>
+            <Button variant="success" onClick={handleUpdateClick}
+                    className='col-12 col-lg-5 mb-3 me-5'>
               Actualizar Reserva
             </Button>
 
             <Button variant="danger" onClick={handleCancelClick}
-                    className='col-12 col-lg-4 mb-3'>
+                    className='col-12 col-lg-5 mb-3'>
               Cancelar Reserva
             </Button>
           </div>
@@ -82,6 +102,7 @@ const BookingDetail = () => {
           </div>
         </Form>
     </div>
+    </>
   )
 }
 
