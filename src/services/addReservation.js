@@ -15,17 +15,14 @@ const addReservation = async (
 
   let arrayServices
 
-  // si usuario no elige ningun servicio extra en form, setearlo como 1 (equivalente a NA en bd)
+  // si usuario no elige ningun servicio extra en form, setearlo como 0 (equivalente a NA en bd)
   // de lo contrario, setearlo como el array qe venga
   if (selectedServices.length > 0) {
     arrayServices = selectedServices
   }else {
-    
-    arrayServices = [1]
+    arrayServices = [0]
   }
 
-  
-  
   const body ={
     total_amount,
     reservation_amount,

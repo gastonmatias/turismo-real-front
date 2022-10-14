@@ -24,6 +24,7 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
     const [selectedServices, setSelectedServices] = useState([]);
     const [amountServices, setAmountServices] = useState([0]);
     const [range, setRange] = useState([{startDate: new Date(),endDate: new Date(),key:'selection'}]);
+    /* const [range, setRange] = useState([{}]); */
     const [days, setDays] = useState(0);
     const [qtyCustomers, setQtyCustomers] = useState(1);
     const [checkIn,  setCheckIn]  = useState('-');
@@ -53,12 +54,20 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
   
     const handleSubmit = async (e) => {
       e.preventDefault()
-      if (user ===null) {
+
+      if (user ===null) {// si usuario NO esta logueado
+        alertToast('info','Por favor, inicie sesión antes de continuar','bottom-center','dark')
         navigate('/login')
-      }else {
+      }
+      else{
         alertToast('info','Redireccionando a Webpay','bottom-center','dark')
         await newReservation()
-      }
+      }  
+      
+    }
+
+    const handleInvalidCustomers = () => {
+      alertToast('warning',`Por favor, indique número válido de asistentes (1-${capacidad})`,'bottom-center','dark')
     }
 
     let checkInVisual  = checkIn.toLocaleString( 'es-CL',
@@ -67,7 +76,6 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
     let checkOutVisual = checkOut.toLocaleString('es-CL',
       {year: 'numeric', month: 'numeric', day: 'numeric',  weekday: 'long'}
     )
-
 
     return (
     
@@ -80,11 +88,11 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
                         idDepto={idDepto}
                         />
       
-      <Form.Group className="mb-3" controlId="formBasicPassword" style={{width:'fit-content'}}>
+      <Form.Group className="mb-3" style={{width:'fit-content'}}>
         <Form.Label>
           Número de asistentes <BsFillPeopleFill/> (Máx. {capacidad})
         </Form.Label>
-        <Form.Control min='0' max={capacidad} 
+        <Form.Control min='1' max={capacidad} onInvalid={handleInvalidCustomers}
                       value={qtyCustomers} onChange={(e)=>setQtyCustomers(e.target.value)} 
                       type="number" placeholder="" style={{width:"fit-content"}}/>
       </Form.Group>

@@ -36,7 +36,7 @@ const Payment = () => {
   const handlePayBtn = (e) => {
     e.preventDefault()
     alertToast('success','Reserva creada exitosamente!','top-center','dark')
-    sendEmailJS(user.username,user.email,id_reservation)
+    //sendEmailJS(user.username,user.email,id_reservation)
     navigate(`/mis-reservas`)
   }
   
