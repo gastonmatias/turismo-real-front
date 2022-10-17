@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+
 import TurismorealContext from "./TurismorealContext";
-import {toast} from 'react-toastify'
 import alertToast from "../components/UI/alertToast";
+import { url_django } from "../env";
 
 export const TurismorealProvider = ({ children }) => {
   
@@ -28,7 +29,7 @@ export const TurismorealProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const loginUser = async (username, password) => {
-    const response = await fetch("http://127.0.0.1:8000/api_web/token/", {
+    const response = await fetch(`${url_django}/api_web/token/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -54,10 +55,10 @@ export const TurismorealProvider = ({ children }) => {
   const registerUser = async (username,nombre,apellido,email, pass1, pass2) => {
     
     if(username===''||nombre===''||apellido===''||email===''|| pass1===''|| pass2===''){
-      return alert('complete todo caballero')
+      return 
     }
 
-    const response = await fetch("http://127.0.0.1:8000/api_web/register/", {
+    const response = await fetch(`${url_django}/api_web/register/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

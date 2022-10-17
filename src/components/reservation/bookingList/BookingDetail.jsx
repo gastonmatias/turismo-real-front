@@ -17,7 +17,7 @@ const BookingDetail = () => {
   const {state:{props}} = location;
   const navigate = useNavigate()
 
-  const [qtyCustomers, setQtyCustomers] = useState(0);
+  const [qtyCustomers, setQtyCustomers] = useState(props.qty_customers);
 
   const handleCustomers = () => {
     //return props.status.contains('Activo')
