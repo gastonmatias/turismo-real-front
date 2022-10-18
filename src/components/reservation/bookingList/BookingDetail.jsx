@@ -1,14 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import { useLocation, useNavigate} from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {BsFillPeopleFill } from "react-icons/bs";
+import { BsClipboardCheck } from "react-icons/bs";
+
 import cancelReservation from '../../../services/cancelReservation';
 import confirmAction from '../../UI/confirmAction';
 import alertToast from '../../UI/alertToast';
 import TurismorealContext from '../../../context/TurismorealContext';
 import Loader from '../../UI/Spinner';
+import editReservation from '../../../services/editReservation';
+import getServicesByReservation from '../../../services/getServicesByReservation';
 
 const BookingDetail = () => {
 
@@ -17,12 +21,18 @@ const BookingDetail = () => {
   const {state:{props}} = location;
   const navigate = useNavigate()
 
-  const [qtyCustomers, setQtyCustomers] = useState(props.qty_customers);
+  useEffect(() => {
+    getReservationServices()
+  }, [props.id]);
 
-  const handleCustomers = () => {
-    //return props.status.contains('Activo')
-    //if(props.status==='Cancelado'){ 
-      //alertToast('success','Reserva Actualizada!','top-center','dark')
+  const [qtyCustomers, setQtyCustomers] = useState(props.qty_customers);
+  const [services, setServices] = useState([]);
+
+  const getReservationServices = async() => {
+    setIsLoading(true)
+    const resp = await getServicesByReservation(props.id)
+    setServices(resp)
+    setIsLoading(false)
   }
 
   const cancelarReserva = async() => {
@@ -41,11 +51,19 @@ const BookingDetail = () => {
     )
   }
 
-  const handleUpdateClick = () => {
+  const handleUpdateClick = async() => {
+    setIsLoading(true)
+    const resp = await editReservation(props.id, qtyCustomers)
+    console.log(resp);
+    alertToast('success','Reserva Actualizada!','top-center','dark')
+    setIsLoading(false)
   }
 
   return (
-    <> {isLoading && <Loader type="full" animation="border" varian="light"/>}
+    <> 
+    {(isLoading||services.length===0) && <Loader type="full" animation="border" variant="light"/>}
+    
+    {services.length>0 &&
     <div className='d-flex justify-content-center mt-3'>
         <Form className='border border-secondary rounded px-5 mx-5'>
             <Form.Group className="mb-3" >
@@ -76,9 +94,14 @@ const BookingDetail = () => {
 
             <Form.Group className="mb-3" >
                 <Form.Label>
-                    Servicios Extra
+                    Servicios Extra Contratados
                 </Form.Label>
-              <ul>{props.commune}</ul>
+                { services.map((e) => (
+                    <ul className='mb-1' key={e}>
+                      <BsClipboardCheck/> {e}
+                    </ul>
+                  ))
+                }
             </Form.Group>
 
           {(props.status==='Reservado') &&
@@ -102,6 +125,7 @@ const BookingDetail = () => {
           </div>
         </Form>
     </div>
+  }
     </>
   )
 }
