@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {useLocation, useNavigate} from 'react-router-dom';
 
 import Form from 'react-bootstrap/Form';
@@ -13,6 +13,7 @@ import './payment.css'
 import { sendEmailJS } from '../../../helpers/sendEmailJS';
 import alertToast from '../../UI/alertToast';
 import addTransaction from '../../../services/addTransaction';
+import TurismorealContext from '../../../context/TurismorealContext';
 
 const Payment = () => {
   
@@ -20,9 +21,12 @@ const Payment = () => {
   const navigate = useNavigate()
 
   const {state:{reservationAmount,id_reservation}} = location
+  const {user} = useContext(TurismorealContext)
 
   const saveTransaction = async() => {
-    await addTransaction(id_reservation,reservationAmount)
+    // await addTransaction(id_reservation,reservationAmount)
+    const resp = await addTransaction(id_reservation,reservationAmount)
+    console.log(resp);
   }
   
   const handlePayBtn = (e) => {
@@ -30,7 +34,7 @@ const Payment = () => {
     saveTransaction()
     alertToast('success','Reserva creada exitosamente!','top-center','dark')
     // sendEmailJS(user.username,user.email,id_reservation)
-    // sendEmailJS(user.username,'gas.villagra@duocuc.cl',id_reservation)
+    sendEmailJS(user.username,'gas.villagra@duocuc.cl',id_reservation)
     navigate(`/mis-reservas`)
   }
   
