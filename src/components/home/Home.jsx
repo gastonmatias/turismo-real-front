@@ -8,7 +8,7 @@ const Home = () => {
   
   return (
    
-    <div className='container border border-dark' style={{width: '100vh'}}>
+    <div className='container' style={{width: '100vh'}}>
         
         <div className='my-2'>
             {user ? 
