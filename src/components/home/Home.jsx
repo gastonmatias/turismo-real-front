@@ -1,7 +1,5 @@
-import React, { useContext,useEffect } from 'react'
+import React, { useContext} from 'react'
 import TurismorealContext from '../../context/TurismorealContext'
-import getDeptos from '../../services/getDeptos'
-//import { getDeptos } from '../../services/arrayGetDeptoList'
 import {CarouselHome} from './CarouselHome'
 
 const Home = () => {
@@ -10,7 +8,7 @@ const Home = () => {
   
   return (
    
-    <div className='container'>
+    <div className='container border border-dark' style={{width: '100vh'}}>
         
         <div className='my-2'>
             {user ? 
@@ -22,9 +20,9 @@ const Home = () => {
    
         <CarouselHome/>
 
-        <div className='py-2'>
+        {/* <div className='py-2'>
           <h2 className='display-4 text-center py-2'>Testimonios</h2>
-        </div>
+        </div> */}
         
     </div>
   )
