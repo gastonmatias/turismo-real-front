@@ -45,7 +45,7 @@ const DeptoDetail = () => {
     <div className='container mt-1 mb-3'>
         {!showFormReserva &&
           <>
-          <Card >
+          <Card>
             <Card.Img variant="top" className='img img-fluid' src={`data:image/jpg;base64,${depto.department_image}`} />
             <Card.Body>
               <Card.Title className='display-5'>{depto.commune}</Card.Title>

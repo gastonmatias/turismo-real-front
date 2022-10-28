@@ -8,7 +8,7 @@ const Home = () => {
   
   return (
    
-    <div className='container' style={{width: '100vh'}}>
+    <div className='container ' >
         
         <div className='my-2'>
             {user ? 
@@ -18,7 +18,7 @@ const Home = () => {
             }
         </div>
    
-        <CarouselHome/>
+        <CarouselHome className='border border-dark'/>
 
         {/* <div className='py-2'>
           <h2 className='display-4 text-center py-2'>Testimonios</h2>

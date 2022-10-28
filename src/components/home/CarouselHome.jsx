@@ -16,14 +16,15 @@ export function CarouselHome() {
   const deptos = [vigna1, castro1, corral1, catchagua1]
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
+    <Carousel activeIndex={index} onSelect={handleSelect} className='text-center'>
       
       {
         deptos.map((e,i) => 
           (
           <Carousel.Item key={e}>
             <img
-              className="d-block w-100 img-fluid"
+              className=" img-fluid "
+              style={{width:'90vh'}}
               src={e}
               alt="First slide"
             />

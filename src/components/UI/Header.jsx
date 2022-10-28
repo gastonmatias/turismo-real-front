@@ -17,6 +17,7 @@ function Header() {
   }
 
   return (
+    <Container fluid className='bg-dark'>
     <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand href="/">
@@ -48,13 +49,11 @@ function Header() {
               </>              
             )
           }
-            
-            
-            
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    </Container>
   );
 }
 
