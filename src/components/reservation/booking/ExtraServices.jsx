@@ -7,39 +7,76 @@ import { BsClipboardCheck } from "react-icons/bs";
 import { MdEmojiTransportation,MdOutlineNordicWalking } from "react-icons/md";
 
 import getExtraServices from '../../../services/getExtraServices';
+import { ModalTransp } from './ModalTransp';
+import { ModalTours } from './ModalTours';
 
-const ExtraServices = ({setSelectedServices,selectedServices,setAmountServices,amountServices}) => {
+const ExtraServices = ({setSelectedServices,selectedServices,setAmountServices,amountServices,setServiceInfo, serviceInfo}) => {
   
     useEffect(() => {
         getServices()
       }, []);
     
-    const [services, setServices] = useState([]);
-    const [servicesNames, setServicesNames] = useState([]);
+    // const [services, setServices] = useState([]); // llamada a bd
+    const [transportes, setTransportes] = useState([]); // llamada a bd
+    const [tours, setTours] = useState([]);// llamada a bd
+    const [servicesNames, setServicesNames] = useState([]); // para imprimir seleccionados en dom
     const [showModal, setShowModal] = useState(false);
+    const [showModalTours, setShowModalTours] = useState(false);
+    const [showModalTransp, setShowModalTransp] = useState(false);
     
     const getServices = async() => {
+      // obtener todos los servivios ext desde bd
       const resp = await getExtraServices()
-      setServices(resp)  
-    }
 
-    const handleSelect = () => {
-      setShowModal(true)
-    }
-    const handleCloseModal = () => setShowModal(false);
-    
-    const handleChangeCheckbox = (e) => {
+      // separar los servicios extra en tours y trans
+      let tours = resp.filter((e) => e.service_type_id === 2 )
+      let transp = resp.filter((e) => e.service_type_id === 3 )
+
+      // a trans agregarles hora, sera util en componente modalTrans
+      let transConHora = transp.map((e) => {return {...e,'hora':'00:00'}})
       
-      if(e.currentTarget.checked){
-          setSelectedServices([...selectedServices,Number(e.target.value)])
-          setServicesNames([...servicesNames,e.target.name])         
-          setAmountServices([...amountServices,Number(e.target.id)])
+      // setear tours y transportes
+      setTransportes(transConHora)
+      setTours(tours)
+    }
+    console.log(serviceInfo)
+
+    const handleSelect = (e) => {
+      
+      if (e.target.id==='modal-transp') {
+        setShowModalTransp(true)
+      }
+      if (e.target.id==='modal-tours') {
+        setShowModalTours(true)
+      }      
+    }
+    
+    const handleCloseModal = () => {
+      setShowModalTransp(false)
+      setShowModalTours(false)
+      setShowModal(false);
+    }
+    
+    const handleChangeCheckbox = (ev,el) => {
+      
+      if(ev.currentTarget.checked){
+          setSelectedServices([...selectedServices,Number(ev.target.value)])
+          setServicesNames([...servicesNames,ev.target.name])         
+          setAmountServices([...amountServices,Number(ev.target.id)])
+
+          setServiceInfo([
+            ...serviceInfo,
+            { 'id': el.id,
+              'hora':el.hora}
+          ])
         }
 
-      if(!e.currentTarget.checked) {
-          setSelectedServices(selectedServices.filter((x) => x !== Number(e.target.value)))
-          setServicesNames(servicesNames.filter((x) => x !== e.target.name))     
-          setAmountServices(amountServices.filter((x) => x !== Number(e.target.id)))     
+      if(!ev.currentTarget.checked) {
+          setSelectedServices(selectedServices.filter((x) => x !== Number(ev.target.value)))
+          setServicesNames(servicesNames.filter((x) => x !== ev.target.name))     
+          setAmountServices(amountServices.filter((x) => x !== Number(ev.target.id))) 
+          
+          setServiceInfo(serviceInfo.filter(x => x.id !== Number(el.id)))
       }      
     }
 
@@ -47,14 +84,52 @@ const ExtraServices = ({setSelectedServices,selectedServices,setAmountServices,a
     <>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label className='btn btn-outline-primary'onClick={handleSelect}>
+        <Form.Label className='d-block'>
           <MdEmojiTransportation/>  
-            Servicios Extra?
+             Servicios Extra? 
           <MdOutlineNordicWalking/>
         </Form.Label>
+
+        <Form.Label className='btn btn-outline-primary me-1'onClick={handleSelect} id='modal-tours'>
+            Tours?
+          <MdOutlineNordicWalking/>
+        </Form.Label>
+
+        <Form.Label className='btn btn-outline-primary'onClick={handleSelect} id='modal-transp'>
+          <MdEmojiTransportation/>  
+            Transporte?
+        </Form.Label>
+       
+        {/* //! INIT MODAL TOURS */}
+        {
+          showModalTours &&
+          <ModalTours   handleCloseModal={handleCloseModal} 
+                        showModalTours={showModalTours}
+                        handleChangeCheckbox={handleChangeCheckbox}
+                        tours={tours}
+                        selectedServices={selectedServices}
+          />
+        }{/* //! FIN MODAL Tours */}
+
         
+        {/* //! INIT MODAL TRANSPORTE */}
+        {
+          showModalTransp &&
+          <ModalTransp  handleCloseModal={handleCloseModal} 
+                        showModalTransp={showModalTransp}
+                        handleChangeCheckbox={handleChangeCheckbox}
+                        transportes={transportes}
+                        selectedServices={selectedServices}
+                        serviceInfo={serviceInfo}
+                        setServiceInfo={setServiceInfo}
+                        setTransportes={setTransportes}
+
+          />
+        }{/* //! FIN MODAL TRANSPORTE */}
+
         {/* imprime servicios seleccionados en DOM */}
         <div>
+          {JSON.stringify(serviceInfo)}
           {servicesNames.map((e) => 
              (
               <ul className='my-1' key={e}>
@@ -63,41 +138,6 @@ const ExtraServices = ({setSelectedServices,selectedServices,setAmountServices,a
             )
           )}
         </div>
-
-        
-        {/* //! INIT modal */}
-        {showModal && 
-
-        <Modal className='d-flex align-items-center' show={showModal} 
-                onHide={handleCloseModal}
-                backdrop="static"
-                >
-            <Modal.Header closeButton>
-              <Modal.Title>Selección Servicios Extra</Modal.Title>
-            </Modal.Header>
-            
-            <div className="mx-3 justify-content-center aligns-items-center  px-2 py-3">
-                {services.map((e) => (
-                    <Form.Check  
-                        type='checkbox' 
-                        label={`${e.id}) ${e.name}, $${e.price}`}
-                        value={e.id}
-                        name={e.name}
-                        key={e.id}
-                        onChange={handleChangeCheckbox}
-                        checked={selectedServices.includes(e.id)}
-                        id={e.price}
-                    />
-                ))}
-            </div>       
-            <Modal.Footer>
-             <Button variant="primary" onClick={handleCloseModal}>
-                Seleccionar
-              </Button>
-            </Modal.Footer>
-        </Modal>
-
-        }{/* //! FIN modal */}
       
       </Form.Group>
        

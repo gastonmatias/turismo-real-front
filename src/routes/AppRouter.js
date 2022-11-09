@@ -7,6 +7,7 @@ import { DashboardRoutes } from "./Dashboard";
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { Reporting } from "../components/reporting/Reporting";
 
 const AppRouter = () => {
   
@@ -16,11 +17,11 @@ const AppRouter = () => {
       <ToastContainer/>
       
       <Routes>
-      
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/registro" element={<Register />} />
         <Route exact path="/*" element={<DashboardRoutes />} />  
         <Route path="/payment" element={<Payment/>}/>
+        <Route path="/reporting" element={<Reporting/>}/>
       </Routes>
 
       </TurismorealProvider>

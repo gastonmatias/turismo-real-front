@@ -22,6 +22,8 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
     const navigate = useNavigate()
 
     const [selectedServices, setSelectedServices] = useState([]);
+    // const [serviceInfo, setServiceInfo] = useState([{'id':0,'hora':'00:00'}]);// para guardar hora si servicio extra select es transp
+    const [serviceInfo, setServiceInfo] = useState([]);// para guardar hora si servicio extra select es transp
     const [amountServices, setAmountServices] = useState([0]);
     const [range, setRange] = useState([{startDate: new Date(),endDate: new Date(),key:'selection'}]);
     /* const [range, setRange] = useState([{}]); */
@@ -35,6 +37,8 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
     let totalAmount = arriendoAmount + servicesAmount
     let reservationAmount = totalAmount/10
 
+    // console.log('serviceInfo',serviceInfo);
+
     const newReservation = async() => {
       const resp = await addReservation(
         totalAmount,//total_amount
@@ -46,11 +50,24 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
         idDepto,//department_id
         selectedServices
       )      
+
+      // TODO: addServiceInfo
+      //if (serviceInfo.lenght > 0) {
+      //  await addServiceInfo()
+      //} 
       
       const {id_reservation} = resp;
 
       navigate('/payment',{state:{reservationAmount,id_reservation}})
     }
+
+    // const addServiceInfo = () => {
+    //   // const found = arr1.some(r=> arr2.includes(r))
+
+    //   let test = selectedServices.some(selectedService => transportes.includes(selectedService.id))
+
+    //   console.log(test)
+    // }
   
     const handleSubmit = async (e) => {
       e.preventDefault()
@@ -102,6 +119,8 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
         selectedServices={selectedServices}
         setAmountServices={setAmountServices}
         amountServices={amountServices}
+        setServiceInfo={setServiceInfo}
+        serviceInfo={serviceInfo}
       />
 
 
