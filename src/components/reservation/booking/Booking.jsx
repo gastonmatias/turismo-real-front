@@ -50,7 +50,8 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
         checkOut.toLocaleDateString('ko-KR'),// año - mes - dia (funcando)
         user.user_id,//user_id
         idDepto,//department_id
-        selectedServices
+        selectedServices,
+        serviceInfo
       )      
 
       // TODO: addServiceInfo
@@ -77,6 +78,7 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
       }
       else{
         alertToast('info','Redireccionando a Webpay','bottom-center','dark')
+        
         await newReservation()
         // await addServiceInfo()
       }  

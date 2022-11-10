@@ -8,7 +8,8 @@ const addReservation = async (
   check_out,
   user_id,
   department_id,
-  selectedServices
+  selectedServices,
+  servicesInfo
   ) => {
   
   const url = `${url_django}/api_web/reserve/`;
@@ -31,7 +32,8 @@ const addReservation = async (
     check_out,
     user_id,
     department_id,
-    selectedServices: arrayServices
+    selectedServices: arrayServices,
+    servicesInfo
   }
 
   const opt = {

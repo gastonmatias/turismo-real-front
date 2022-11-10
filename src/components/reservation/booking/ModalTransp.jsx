@@ -21,13 +21,16 @@ export const ModalTransp = ({
     // de ser asi, actualiza la hora del array transportes
     const transportesNewHour = transportes.map((e) =>  e.id === id ? {...e, hora: ev.target.value} : e )
     setTransportes(transportesNewHour)
-    
+  }
+
+  const handleClickSeleccionar = () => {
     // se determina si un elemento de selectedServices esta contenido en el array transportes,
     // de ser asi retorna un nuevo array qe incliye el id del servicio + hora seleccionada
     let selectedTransp = transportes.map(e => selectedServices.includes(e.id) ? {'id':e.id,'hora': e.hora} :null)
     
     // seteo de hora + id_servicio_transporte (sacando los nulls)
     setServiceInfo(selectedTransp.filter(e => e !== null))
+    handleCloseModal()
   }
 
   return (
@@ -70,7 +73,7 @@ export const ModalTransp = ({
 
             </div>  
             <Modal.Footer>
-             <Button variant="primary" onClick={handleCloseModal}>
+             <Button variant="primary" onClick={handleClickSeleccionar}>
                 Seleccionar
               </Button>
             </Modal.Footer>

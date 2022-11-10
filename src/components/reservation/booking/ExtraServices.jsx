@@ -63,21 +63,25 @@ const ExtraServices = ({setSelectedServices,selectedServices,setAmountServices,a
           setServicesNames([...servicesNames,ev.target.name])         
           setAmountServices([...amountServices,Number(ev.target.id)])
 
-          setServiceInfo([
-            ...serviceInfo,
-            { 'id': el.id,
-              'hora':el.hora}
-          ])
-        }
+          el && setServiceInfo([...serviceInfo,{ 'id': el.id,'hora': el.hora}])
+      }
 
       if(!ev.currentTarget.checked) {
           setSelectedServices(selectedServices.filter((x) => x !== Number(ev.target.value)))
           setServicesNames(servicesNames.filter((x) => x !== ev.target.name))     
           setAmountServices(amountServices.filter((x) => x !== Number(ev.target.id))) 
           
-          setServiceInfo(serviceInfo.filter(x => x.id !== Number(el.id)))
+          el && setServiceInfo(serviceInfo.filter(x => x.id !== Number(el.id)))
       }      
     }
+
+    let selectedTransp = transportes.map(e => selectedServices.includes(e.id) ? `${e.name} : ${e.hora} hrs` : null)
+    selectedTransp = selectedTransp.filter(e => e !== null)
+    
+    let selectedTours = tours.map(e => selectedServices.includes(e.id) ? `${e.name}` : null)
+    selectedTours = selectedTours.filter(e => e !== null)
+    
+    let selectedServicesJoin = [...selectedTransp,...selectedTours]
 
     return (
     <>
@@ -128,8 +132,7 @@ const ExtraServices = ({setSelectedServices,selectedServices,setAmountServices,a
 
         {/* imprime servicios seleccionados en DOM */}
         <div>
-          {JSON.stringify(serviceInfo)}
-          {servicesNames.map((e) => 
+          {selectedServicesJoin.map((e) => 
              (
               <ul className='my-1' key={e}>
                 <BsClipboardCheck/> {e}
