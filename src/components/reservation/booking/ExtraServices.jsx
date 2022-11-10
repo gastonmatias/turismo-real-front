@@ -39,7 +39,6 @@ const ExtraServices = ({setSelectedServices,selectedServices,setAmountServices,a
       setTransportes(transConHora)
       setTours(tours)
     }
-    console.log(serviceInfo)
 
     const handleSelect = (e) => {
       

@@ -44,8 +44,10 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
         totalAmount,//total_amount
         reservationAmount,//reservation_amount
         qtyCustomers,//qty_customers
-        checkIn.toLocaleDateString('en-CA'),//check_in
-        checkOut.toLocaleDateString('en-CA'),//check_out
+        //checkIn.toLocaleDateString('en-CA'), // yyyy-mm-dd (not anymore!)
+        //checkOut.toLocaleDateString('en-CA'),// yyyy-mm-dd (not anymore!)
+        checkIn.toLocaleDateString( 'ko-KR'),// año - mes - dia (funcando)
+        checkOut.toLocaleDateString('ko-KR'),// año - mes - dia (funcando)
         user.user_id,//user_id
         idDepto,//department_id
         selectedServices
@@ -57,17 +59,14 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
       //} 
       
       const {id_reservation} = resp;
+      console.log(serviceInfo)
 
-      navigate('/payment',{state:{reservationAmount,id_reservation}})
+      // navigate('/payment',{state:{reservationAmount,id_reservation}})
     }
 
-    // const addServiceInfo = () => {
-    //   // const found = arr1.some(r=> arr2.includes(r))
-
-    //   let test = selectedServices.some(selectedService => transportes.includes(selectedService.id))
-
-    //   console.log(test)
-    // }
+    // ! ADD SERVICE INFO
+    const addServiceInfo = () => {
+    }
   
     const handleSubmit = async (e) => {
       e.preventDefault()
@@ -79,6 +78,7 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
       else{
         alertToast('info','Redireccionando a Webpay','bottom-center','dark')
         await newReservation()
+        // await addServiceInfo()
       }  
       
     }
