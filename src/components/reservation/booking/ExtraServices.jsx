@@ -72,7 +72,8 @@ const ExtraServices = ({setSelectedServices,selectedServices,setAmountServices,a
           setAmountServices(amountServices.filter((x) => x !== Number(ev.target.id))) 
           
           el && setServiceInfo(serviceInfo.filter(x => x.id !== Number(el.id)))
-      }      
+      }
+      
     }
 
     let selectedTransp = transportes.map(e => selectedServices.includes(e.id) ? `${e.name} : ${e.hora} hrs` : null)

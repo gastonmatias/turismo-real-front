@@ -31,7 +31,6 @@ const BookingDetail = () => {
   const getReservationServices = async() => {
     setIsLoading(true)
     const resp = await getServicesByReservation(props.id)
-    console.log(resp)
     setServices(resp)
     setIsLoading(false)
   }

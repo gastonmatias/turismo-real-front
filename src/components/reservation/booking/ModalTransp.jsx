@@ -30,6 +30,7 @@ export const ModalTransp = ({
     
     // seteo de hora + id_servicio_transporte (sacando los nulls)
     setServiceInfo(selectedTransp.filter(e => e !== null))
+    console.table(serviceInfo)
     handleCloseModal()
   }
 

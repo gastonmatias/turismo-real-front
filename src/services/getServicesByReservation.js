@@ -21,7 +21,12 @@ const getServicesByReservation = async (id) => {
         return console.log("Hubo un error al obtener los servicios de la reserva");
       }
   
-      const servicios = data.services.map((e) => e.servicio_extra)
+      const servicios = data.services.map((e) => (
+        
+        e.hora
+        ? `${e.servicio_extra} (${e.hora} hrs)`
+        : `${e.servicio_extra}`
+      ))
 
       return servicios;
   
