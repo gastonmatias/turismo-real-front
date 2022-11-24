@@ -22,11 +22,9 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
     const navigate = useNavigate()
 
     const [selectedServices, setSelectedServices] = useState([]);
-    // const [serviceInfo, setServiceInfo] = useState([{'id':0,'hora':'00:00'}]);// para guardar hora si servicio extra select es transp
     const [serviceInfo, setServiceInfo] = useState([]);// para guardar hora si servicio extra select es transp
     const [amountServices, setAmountServices] = useState([0]);
     const [range, setRange] = useState([{startDate: new Date(),endDate: new Date(),key:'selection'}]);
-    /* const [range, setRange] = useState([{}]); */
     const [days, setDays] = useState(0);
     const [qtyCustomers, setQtyCustomers] = useState(1);
     const [checkIn,  setCheckIn]  = useState('-');
@@ -37,7 +35,6 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
     let totalAmount = arriendoAmount + servicesAmount
     let reservationAmount = totalAmount/10
 
-    // console.log('serviceInfo',serviceInfo);
 
     const newReservation = async() => {
       const resp = await addReservation(
@@ -48,27 +45,17 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
         //checkOut.toLocaleDateString('en-CA'),// yyyy-mm-dd (not anymore!)
         checkIn.toLocaleDateString( 'ko-KR'),// año - mes - dia (funcando)
         checkOut.toLocaleDateString('ko-KR'),// año - mes - dia (funcando)
-        user.user_id,//user_id
-        idDepto,//department_id
+        user.user_id,
+        idDepto,
         selectedServices,
         serviceInfo
       )      
 
-      // TODO: addServiceInfo
-      //if (serviceInfo.lenght > 0) {
-      //  await addServiceInfo()
-      //} 
-      
       const {id_reservation} = resp;
-      console.log(serviceInfo)
 
-      // navigate('/payment',{state:{reservationAmount,id_reservation}})
+      navigate('/payment',{state:{reservationAmount,id_reservation}})
     }
 
-    // ! ADD SERVICE INFO
-    const addServiceInfo = () => {
-    }
-  
     const handleSubmit = async (e) => {
       e.preventDefault()
 
@@ -80,7 +67,6 @@ const Booking = ({handleClickForm,capacidad,deptoPrice,disabledDates}) => {
         alertToast('info','Redireccionando a Webpay','bottom-center','dark')
         
         await newReservation()
-        // await addServiceInfo()
       }  
       
     }

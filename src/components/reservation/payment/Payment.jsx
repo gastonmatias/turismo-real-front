@@ -33,8 +33,8 @@ const Payment = () => {
     e.preventDefault()
     saveTransaction()
     alertToast('success','Reserva creada exitosamente!','top-center','dark')
-    // sendEmailJS(user.username,user.email,id_reservation)
-    sendEmailJS(user.username,'gas.villagra@duocuc.cl',id_reservation)
+    sendEmailJS(user.username,user.email,id_reservation)
+    // sendEmailJS(user.username,'gas.villagra@duocuc.cl',id_reservation)
     navigate(`/mis-reservas`)
   }
   
